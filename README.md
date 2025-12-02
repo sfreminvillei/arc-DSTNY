@@ -19,3 +19,10 @@ Interfaz web experimental para simular tiradas de un duelo de cartas inspirado e
 ## Notas de optimización
 - La inicialización de avatares se realiza una sola vez por partida, evitando trabajo duplicado al aplicar clases CSS.
 - Los recursos están organizados en módulos ES6, por lo que basta servir la carpeta con un servidor estático si se desea ejecutar sobre HTTP.
+
+## Fuente de emojis
+Para que los emojis se vean igual en todos los dispositivos, la hoja de estilos admite un webfont de color:
+
+1. Descarga `twemoji-mozilla.woff2` desde el repositorio de Twemoji Mozilla y colócalo en `fonts/`.
+2. El CSS ya incluye una regla `@font-face` que lo carga como `"Twemoji Mozilla"` y lo usa como fallback en `body`.
+3. Si distribuyes el proyecto con la fuente incluida, recuerda mantener la licencia SIL Open Font License asociada a Twemoji.

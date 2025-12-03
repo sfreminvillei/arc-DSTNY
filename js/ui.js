@@ -124,6 +124,7 @@ export class UIController {
     this.setupOverlayClose();
     this.setupSetupModal();
     this.setupThemeToggle();
+    this.setupWelcomeOverlay();
     this.renderCodexMatrix();
 
     // Evento para exportar el registro del Oráculo
@@ -218,6 +219,10 @@ export class UIController {
     this.elementSelect = document.getElementById("elemental-select");
     this.avatarOptions = document.querySelectorAll('input[name="avatar"]');
     this.viewModeOptions = document.querySelectorAll('input[name="view-mode"]');
+
+    // Pantalla de bienvenida
+    this.welcomeOverlay = document.getElementById("welcome-overlay");
+    this.enterBtn = document.getElementById("enter-btn");
 
   }
 
@@ -469,8 +474,6 @@ export class UIController {
 
   setupSetupModal() {
     if (!this.setupModal) return;
-    this.setupModal.classList.remove("hidden");
-
     if (this.elementSelect) {
       this.elementSelect.innerHTML = "";
       ELEMENTAL_EFFECTS.forEach((el) => {
@@ -495,6 +498,21 @@ export class UIController {
         "text";
       this.applyMatchConfig(name, lpValue, elementCard, avatarClass, viewModeValue);
     });
+  }
+
+  setupWelcomeOverlay() {
+    if (!this.welcomeOverlay || !this.enterBtn) return;
+    this.welcomeOverlay.classList.remove("hidden");
+    this.enterBtn.addEventListener("click", () => {
+      this.welcomeOverlay.classList.add("hidden");
+      this.showSetupModal();
+    });
+  }
+
+  showSetupModal() {
+    if (!this.setupModal) return;
+    this.setupModal.classList.remove("hidden");
+    this.playerNameInput?.focus();
   }
 
   applyMatchConfig(name, lpValue, elementCard, avatarClass, viewMode = "text") {

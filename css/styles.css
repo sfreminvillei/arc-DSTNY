@@ -43,11 +43,18 @@ html {
   height: 100%;
 }
 
+/* Fuente de emojis opcional para estabilidad entre dispositivos */
+@font-face {
+  font-family: "Twemoji Mozilla";
+  src: local("Twemoji Mozilla"), url("../fonts/twemoji-mozilla.woff2") format("woff2");
+  font-display: swap;
+}
+
 /* BEGIN PATCH: ajuste global tipografía */
 body {
   margin: 0;
   padding: 0;
-  font-family: "Cardo", "Times New Roman", Georgia, serif;
+  font-family: "Cardo", "Twemoji Mozilla", "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Emoji", "Times New Roman", Georgia, serif;
   font-size: 0.84rem;
   background: var(--bg);
   color: var(--text);

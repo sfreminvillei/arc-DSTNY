@@ -508,7 +508,6 @@ export class UIController {
     this.game.currentTurn.player.element = elementCard;
     this.playerAvatarClass = avatarClass || "avatar-sigil-1";
     this.opponentAvatarClass = this._randomOpponentAvatar(this.playerAvatarClass);
-    this._applyAvatarClasses();
     this.prevLP = { player: lpValue, opponent: lpValue };
     this.flags = { destino: false, duelo: false, codexChoice: null };
     this.dueloRevelado = false;

@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <!-- BEGIN PATCH: intro screen -->
+  <div id="welcome-overlay" class="welcome-overlay">
+    <div class="welcome-overlay__backdrop"></div>
+    <div class="welcome-overlay__content">
+      <p class="welcome-kicker">Bienvenido a</p>
+      <div class="welcome-logo">arc/DSTNY</div>
+      <p class="welcome-legend">arc/DSTNY · All Rights Reserved</p>
+      <button id="enter-btn" class="welcome-btn">Entrar</button>
+    </div>
+  </div>
+  <!-- END PATCH -->
+
   <div id="app">
     <!-- Barra superior: estado de jugadores + Oráculo centrado (sticky) -->
     <header class="top-bar">
@@ -44,128 +56,153 @@
     </header>
 
     <!-- Zona central -->
-    <main class="battle-layout">
-      <!-- Lado jugador -->
-      <section class="player-zone">
-  <h2>Campo del Jugador</h2>
+    <main class="stage">
+      <!-- BEGIN PATCH: battlefield layout -->
+      <section class="battle-layout">
+        <!-- Lado jugador -->
+        <section class="player-zone">
+          <h2>Campo del Jugador</h2>
 
-    <div class="field-grid player-field-grid">
-      <div class="card-block field-arcano">
-        <div id="player-arcano-visual" class="card-visual"></div>
-        <div class="card-info">
-          <div id="player-arcano-title" class="card-title"></div>
-          <div id="player-arcano-info" class="card-extra"></div>
-          <div id="player-arcano-attrs" class="card-attrs"></div>
-        </div>
-      </div>
+          <div class="field-grid player-field-grid">
+            <div class="card-block field-arcano">
+              <div id="player-arcano-visual" class="card-visual"></div>
+              <div class="card-info">
+                <div id="player-arcano-title" class="card-title"></div>
+                <div id="player-arcano-info" class="card-extra"></div>
+                <div id="player-arcano-attrs" class="card-attrs"></div>
+              </div>
+            </div>
 
-    <!-- NUEVO: Info de Espíritu, Elemental, Destino, Deidad del jugador -->
-    <div class="support-cards">
-      <div class="support-card-row field-destino">
-        <span id="player-destino-badge" class="support-placeholder" aria-hidden="true"></span>
-        <div class="support-stack">
-          <span class="support-label">Destino</span>
-          <span id="player-destino-info" class="support-value"></span>
-        </div>
-      </div>
-      <div class="support-card-row field-deidad">
-        <span id="player-deidad-badge" class="support-placeholder" aria-hidden="true"></span>
-        <div class="support-stack">
-          <span class="support-label">Dioses</span>
-          <span id="player-deidad-info" class="support-value"></span>
-        </div>
-       </div>
-       <div class="support-card-row field-spirit">
-        <span id="player-spirit-badge" class="support-placeholder" aria-hidden="true"></span>
-        <div class="support-stack">
-          <span class="support-label">Representante espiritual</span>
-          <span id="player-spirit-info" class="support-value"></span>
-        </div>
-      </div>
-      <div class="support-card-row field-element">
-        <span id="player-element-badge" class="support-placeholder" aria-hidden="true"></span>
-        <div class="support-stack">
-          <span class="support-label">Efecto elemental</span>
-          <span id="player-element-info" class="support-value"></span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Se eliminan botones duplicados de atributos en esta zona -->
-  </section>
-
-      <!-- Oráculo ampliado (vista única) -->
-      <section id="oracle-slot-main" class="oracle-zone oracle-zone-expanded">
-        <div class="oracle-top-block">
-          <div class="oracle-header oracle-header--centered">
-            <h2 id="oracle-title">Oráculo</h2>
-            <div class="oracle-actions">
-              <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-                Oscuro
-              </button>
+            <div class="support-cards">
+              <div class="support-card-row card-slot field-destino">
+                <div class="slot-header">Destino:</div>
+                <div class="slot-body">
+                  <span id="player-destino-badge" class="support-placeholder" aria-hidden="true"></span>
+                  <div class="support-stack">
+                    <span id="player-destino-info" class="support-value"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="support-card-row card-slot field-deidad">
+                <div class="slot-header">Dioses:</div>
+                <div class="slot-body">
+                  <span id="player-deidad-badge" class="support-placeholder" aria-hidden="true"></span>
+                  <div class="support-stack">
+                    <span id="player-deidad-info" class="support-value"></span>
+                  </div>
+                </div>
+               </div>
+               <div class="support-card-row card-slot field-spirit">
+                <div class="slot-header">Representante espiritual:</div>
+                <div class="slot-body">
+                  <span id="player-spirit-badge" class="support-placeholder" aria-hidden="true"></span>
+                  <div class="support-stack">
+                    <span id="player-spirit-info" class="support-value"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="support-card-row card-slot field-element">
+                <div class="slot-header">Efecto elemental:</div>
+                <div class="slot-body">
+                  <span id="player-element-badge" class="support-placeholder" aria-hidden="true"></span>
+                  <div class="support-stack">
+                    <span id="player-element-info" class="support-value"></span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div id="oracle-phase-steps" class="oracle-steps"></div>
-          <div id="oracle-message" class="oracle-message oracle-state-line">
-            El Oráculo espera tu elección.
+        </section>
+
+        <!-- Oráculo ampliado (vista única) -->
+        <section id="oracle-slot-main" class="oracle-zone oracle-zone-expanded">
+          <div class="oracle-top-block">
+            <div class="oracle-header oracle-header--centered">
+              <h2 id="oracle-title">Oráculo</h2>
+              <div class="oracle-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+                  Oscuro
+                </button>
+              </div>
+            </div>
+            <div id="oracle-phase-steps" class="oracle-steps"></div>
+            <div id="oracle-message" class="oracle-message oracle-state-line">
+              El Oráculo espera tu elección.
+            </div>
+            <div class="oracle-log-shell">
+              <div id="oracle-log" class="oracle-log oracle-log-console"></div>
+            </div>
+            <button id="btn-export-log" class="export-btn">
+              Exportar registro del Oráculo
+            </button>
           </div>
-          <div class="oracle-log-shell">
-            <div id="oracle-log" class="oracle-log oracle-log-console"></div>
-          </div>
-          <button id="btn-export-log" class="export-btn">
-            Exportar registro del Oráculo
-          </button>
+        </section>
+
+        <!-- Lado oponente -->
+        <section class="opponent-zone">
+          <h2>Campo del Oponente</h2>
+
+            <div class="field-grid opponent-field-grid">
+              <div class="card-block field-arcano">
+                <div id="opponent-arcano-visual" class="card-visual"></div>
+                <div class="card-info">
+                  <div id="opponent-arcano-title" class="card-title">???</div>
+                  <div id="opponent-arcano-info" class="card-extra"></div>
+                  <div id="opponent-arcano-attrs" class="card-attrs"></div>
+                </div>
+              </div>
+
+              <div class="support-cards">
+                <div class="support-card-row card-slot field-destino">
+                  <div class="slot-header">Destino:</div>
+                  <div class="slot-body">
+                    <span id="opponent-destino-badge" class="support-placeholder" aria-hidden="true"></span>
+                    <div class="support-stack">
+                      <span id="opponent-destino-info" class="support-value">???</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="support-card-row card-slot field-deidad">
+                  <div class="slot-header">Dioses:</div>
+                  <div class="slot-body">
+                    <span id="opponent-deidad-badge" class="support-placeholder" aria-hidden="true"></span>
+                    <div class="support-stack">
+                      <span id="opponent-deidad-info" class="support-value">???</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="support-card-row card-slot field-spirit">
+                  <div class="slot-header">Representante espiritual:</div>
+                  <div class="slot-body">
+                    <span id="opponent-spirit-badge" class="support-placeholder" aria-hidden="true"></span>
+                    <div class="support-stack">
+                      <span id="opponent-spirit-info" class="support-value"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="support-card-row card-slot field-element">
+                  <div class="slot-header">Efecto elemental:</div>
+                  <div class="slot-body">
+                    <span id="opponent-element-badge" class="support-placeholder" aria-hidden="true"></span>
+                    <div class="support-stack">
+                      <span id="opponent-element-info" class="support-value">???</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+      </section>
+      <!-- END PATCH -->
+
+      <!-- Zona de soporte -->
+      <section class="support-zone">
+        <div class="codex-card">
+          <h3>Códice del Grimorio</h3>
+          <p class="codex-line"><strong>Condición de activación:</strong> si tus 2 atributos elegidos cruzan con los del rival en una línea válida, podés anular uno de sus atributos.</p>
+          <p class="codex-line"><strong>Riesgo del Códice:</strong> si el trazo falla, el Códice te castiga con daño directo.</p>
         </div>
       </section>
-
-      <!-- Lado oponente -->
-<section class="opponent-zone">
-  <h2>Campo del Oponente</h2>
-
-    <div class="field-grid opponent-field-grid">
-      <div class="card-block field-arcano">
-        <div id="opponent-arcano-visual" class="card-visual"></div>
-        <div class="card-info">
-          <div id="opponent-arcano-title" class="card-title">???</div>
-          <div id="opponent-arcano-info" class="card-extra"></div>
-          <div id="opponent-arcano-attrs" class="card-attrs"></div>
-        </div>
-      </div>
-
-    <!-- NUEVO: Info de Espíritu, Elemental, Destino, Deidad del oponente -->
-    <div class="support-cards">
-      <div class="support-card-row field-destino">
-        <span id="opponent-destino-badge" class="support-placeholder" aria-hidden="true"></span>
-        <div class="support-stack">
-          <span class="support-label">Destino</span>
-          <span id="opponent-destino-info" class="support-value">???</span>
-        </div>
-      </div>
-      <div class="support-card-row field-deidad">
-        <span id="opponent-deidad-badge" class="support-placeholder" aria-hidden="true"></span>
-        <div class="support-stack">
-          <span class="support-label">Dioses</span>
-          <span id="opponent-deidad-info" class="support-value">???</span>
-        </div>
-      </div>
-      <div class="support-card-row field-spirit">
-        <span id="opponent-spirit-badge" class="support-placeholder" aria-hidden="true"></span>
-        <div class="support-stack">
-          <span class="support-label">Representante espiritual</span>
-          <span id="opponent-spirit-info" class="support-value"></span>
-        </div>
-      </div>
-      <div class="support-card-row field-element">
-        <span id="opponent-element-badge" class="support-placeholder" aria-hidden="true"></span>
-        <div class="support-stack">
-          <span class="support-label">Efecto elemental</span>
-          <span id="opponent-element-info" class="support-value">???</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
     </main>
 
     <!-- Panel superpuesto del Códice del Grimorio -->
@@ -174,15 +211,14 @@
         <h3 class="codex-overlay__title">Códice del Grimorio</h3>
         <div id="codex-table" class="codex-table"></div>
         <div id="codex-legend" class="codex-legend">
-          Códice del Grimorio: si tus 2 atributos elegidos cruzan con los del rival
-          en una línea válida, podés anular uno de sus atributos. Si el trazo falla,
-          el Códice te castiga con daño directo.
+          <p><strong>Condición de activación:</strong> si tus 2 atributos elegidos cruzan con los del rival en una línea válida, podés anular uno de sus atributos.</p>
+          <p><strong>Riesgo del Códice:</strong> si el trazo falla, el Códice te castiga con daño directo.</p>
         </div>
       </div>
     </div>
 
     <!-- Modal inicial de configuración -->
-    <div id="game-setup-modal" class="modal-backdrop">
+    <div id="game-setup-modal" class="modal-backdrop hidden">
       <div class="modal">
         <h3>Configurar partida</h3>
         <label class="modal-label" for="player-name-input">Nombre del jugador</label>
@@ -240,7 +276,7 @@
 
     <footer class="controls-bar">
       <div id="turn-controls"></div>
-      <div class="brand-footer">arc/DSTNY · All Rights Reserved</div>
+      <div class="brand-footer"></div>
     </footer>
   </div>
 
